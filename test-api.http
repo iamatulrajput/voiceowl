@@ -1,0 +1,64 @@
+### VoiceOwl API Testing
+### Use this file with REST Client extension in VS Code or manually with curl
+
+### 1. Health Check
+GET http://localhost:5000/api/health
+
+### 2. API Info
+GET http://localhost:5000/api
+
+### 3. Create Mock Transcription (Part 1 Requirement)
+POST http://localhost:5000/api/transcription
+Content-Type: application/json
+
+{
+  "audioUrl": "https://example.com/sample-audio.mp3"
+}
+
+### 4. Get Transcriptions (Last 30 Days - Part 2 Requirement)
+GET http://localhost:5000/api/transcriptions?page=1&limit=10
+
+### 5. Get Transcription by ID
+# Replace {id} with actual transcription ID from previous response
+GET http://localhost:5000/api/transcription/{id}
+
+### 6. Create Azure Transcription (Part 4 Requirement)
+POST http://localhost:5000/api/azure-transcription
+Content-Type: application/json
+
+{
+  "audioUrl": "https://example.com/sample-audio.mp3",
+  "language": "en-US"
+}
+
+### 7. Create Azure Transcription with Different Language
+POST http://localhost:5000/api/azure-transcription
+Content-Type: application/json
+
+{
+  "audioUrl": "https://example.com/spanish-audio.mp3",
+  "language": "es-ES"
+}
+
+### 8. Get Supported Azure Languages
+GET http://localhost:5000/api/azure-languages
+
+### 9. Test Invalid URL (Error Handling)
+POST http://localhost:5000/api/transcription
+Content-Type: application/json
+
+{
+  "audioUrl": "not-a-valid-url"
+}
+
+### 10. Test Missing audioUrl (Validation)
+POST http://localhost:5000/api/transcription
+Content-Type: application/json
+
+{
+  "someOtherField": "value"
+}
+
+### 11. Test Pagination
+GET http://localhost:5000/api/transcriptions?page=2&limit=5
+
